@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include <conio.h>
+#define n 5
+struct student
+{ char name[8];
+int score;
+} R[n];
+
+main ()
+{ int num, i, j, max, temp,k;
+printf("\n输入学生成绩: \n");
+for (i=1; i<=n; i++)
+{
+printf ("姓名:");
+scanf ("%s", R[i].name);
+printf ("成绩:");
+scanf ("%d", &R[i].score);
+}
+
+printf("使用冒泡排序：\n");
+num=1;
+for (i=1; i<=n; i++)
+{ max=i;
+for (j=i+1; j<=n; j++)
+if (R[j].score>R[max].score)
+max=j;
+if (max!=i)
+{
+         R[0]=R[i];
+         R[i]=R[max];
+         R[max]=R[0];
+}
+if ((i>1)&&(R[i].score<R[i-1].score))
+num=num+1;
+printf("%d %s %d\n", num, R[i].name, R[i].score);
+}
+
+printf("使用直接插入排序：\n");
+for(i=3;i<=n;i++)
+{
+         if(R[i].score>R[i-1].score)
+         {
+                  R[0]=R[i];
+                  R[i]=R[i-1];
+                  for(j=i-2;R[j].score<R[0].score;j--)
+                  {
+                     R[j+1]=R[j];
+                  }
+                  R[j+1]=R[0];
+
+         }
+
+}
+
+num = 1;
+for(k=1;k<=n;k++)
+{
+if ((k>1)&&(R[k].score<R[k-1].score))
+num=num+1;
+printf("%d %s %d\n", num, R[k].name, R[k].score);
+}
+}

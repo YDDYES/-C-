@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct{
+int arrive;
+int treat;
+}NODE;
+typedef struct node{
+NODE data;
+struct node *link;
+}LNODE;
+
+LNODE *head,*tail;
+NODE curr,temp;
+char Fname[120];
+FILE *fp;
+
+void len_queue(LNODE **hpt,LNODE **tpt,NODE x){
+LNODE *p=(LNODE *)malloc(sizeof(LNODE));
+p->data=x;
+p->link=NULL;
+if(*hpt==NULL) *tpt=*hpt=p;
+else
+*tpt=(*tpt)->link=p;
+}
+
+int lde_queue(LNODE **hpt,LNODE **tpt,NODE *cp){
+LNODE *p=*hpt;
+if(*hpt==NULL) return 1;
+*cp=(*hpt)->data;
+*hpt=(*hpt)->link;
+if(*hpt==NULL) *tpt=NULL;
+free(p);
+return 0;
+}
+
+void main(){
+int dwait=0,clock=0,wait=0,count=0,have=0,finish;
+printf("enter file name:");
+scanf("%s",Fname);
+if ((fp=fopen(Fname,"r"))==NULL){
+printf("Con not open file  %s\n",Fname);
+return;
+}
+head=NULL;
+tail=NULL;
+have=fscanf(fp,"%d%d",&temp.arrive,&temp.treat);
+//printf("的have%d\n",have);
+int i=0;
+do{i+=1;
+//printf("i%d\n  ",i);
+if (head==NULL&&have==2){
+//printf("temp.arrive%d\n",temp.arrive);
+dwait+=temp.arrive-clock;
+clock=temp.arrive;
+len_queue(&head,&tail,temp);
+have=fscanf(fp,"%d%d",&temp.arrive,&temp.treat);
+//printf("temp.arrive1%d\n",temp.arrive);
+//printf("if之内的have%d\n",have);
+}
+count++;
+lde_queue(&head,&tail,&curr);
+//printf("curr.arrive%d\n",curr.arrive);
+wait+=clock-curr.arrive;
+finish=clock+curr.treat;
+int j=1;
+while(have==2&&temp.arrive<=finish){
+//printf("a\n");
+j+=1;
+//printf("j%d\n  ",j);
+len_queue(&head,&tail,temp);
+
+have=fscanf(fp,"%d%d",&temp.arrive,&temp.treat);
+
+}
+//printf("head   %d\n",&head);
+clock=finish;
+}while(have==2||head!=NULL);
+printf("结果，接待员等待时间%d\n顾客平均等待时间%f\n",dwait,(double)wait/count);
+printf("模拟总时间%d，顾客人数%d，总等待时间%d\n",clock,count,wait);
+
+
+}
