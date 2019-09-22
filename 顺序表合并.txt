@@ -8,68 +8,70 @@ DataType list[MaxSize];
 int size;
 } SeqList;
 
-void ListInitiate(SeqList *L)/*³õÊ¼»¯Ë³Ğò±íL*/
+void ListInitiate(SeqList *L)/*åˆå§‹åŒ–é¡ºåºè¡¨L*/
 {
-L->size = 0;/*¶¨Òå³õÊ¼Êı¾İÔªËØ¸öÊı*/
+L->size = 0;/*å®šä¹‰åˆå§‹æ•°æ®å…ƒç´ ä¸ªæ•°*/
 }
 
-int ListLength(SeqList L)/*·µ»ØË³Ğò±íLµÄµ±Ç°Êı¾İÔªËØ¸öÊı*/
+int ListLength(SeqList L)/*è¿”å›é¡ºåºè¡¨Lçš„å½“å‰æ•°æ®å…ƒç´ ä¸ªæ•°*/
 {
 return L.size;
 }
 
 int ListInsert(SeqList *L, int i, DataType x)
-/*ÔÚË³Ğò±íLµÄÎ»ÖÃi£¨0 ¡Ü i ¡Ü size£©Ç°²åÈëÊı¾İÔªËØÖµx*/
-/*²åÈë³É¹¦·µ»Ø1£¬²åÈëÊ§°Ü·µ»Ø0*/
+/*åœ¨é¡ºåºè¡¨Lçš„ä½ç½®iï¼ˆ0 â‰¤ i â‰¤ sizeï¼‰å‰æ’å…¥æ•°æ®å…ƒç´ å€¼x*/
+/*æ’å…¥æˆåŠŸè¿”å›1ï¼Œæ’å…¥å¤±è´¥è¿”å›0*/
 {
 int j;
 if(L->size >= MaxSize)
 {
-printf("Ë³Ğò±íÒÑÂúÎŞ·¨²åÈë! \n");
+printf("é¡ºåºè¡¨å·²æ»¡æ— æ³•æ’å…¥! \n");
 return 0;
 }
 else if(i < 0 || i > L->size )
 {
+printf("å‚æ•°iä¸åˆæ³•! \n");
+return 0;
+}
 else
-{ //´Ë¶Î³ÌĞòÓĞÒ»´¦´íÎó
-for(j = L->size; j > i; j--) L->list[j] = L->list[j+1];/*Îª²åÈë×ö×¼±¸*/
-L->list[i] = x;/*²åÈë*/
-L->size ++;/*ÔªËØ¸öÊı¼Ó1*/
+{ //æ­¤æ®µç¨‹åºæœ‰ä¸€å¤„é”™è¯¯
+for(j = L->size; j > i; j--) L->list[j] = L->list[j+1];/*ä¸ºæ’å…¥åšå‡†å¤‡*/
+L->list[i] = x;/*æ’å…¥*/
+L->size ++;/*å…ƒç´ ä¸ªæ•°åŠ 1*/
 return 1;
 }
 }
 
 int ListDelete(SeqList *L, int i, DataType *x)
-/*É¾³ıË³Ğò±íLÖĞÎ»ÖÃi£¨0 ¡Ü i ¡Ü size - 1£©µÄÊı¾İÔªËØÖµ²¢´æ·Åµ½²ÎÊıxÖĞ*/
-/*É¾³ı³É¹¦·µ»Ø1£¬É¾³ıÊ§°Ü·µ»Ø0*/
+/*åˆ é™¤é¡ºåºè¡¨Lä¸­ä½ç½®iï¼ˆ0 â‰¤ i â‰¤ size - 1ï¼‰çš„æ•°æ®å…ƒç´ å€¼å¹¶å­˜æ”¾åˆ°å‚æ•°xä¸­*/
+/*åˆ é™¤æˆåŠŸè¿”å›1ï¼Œåˆ é™¤å¤±è´¥è¿”å›0*/
 {
 int j;
 if(L->size <= 0)
 {
-printf("Ë³Ğò±íÒÑ¿ÕÎŞÊı¾İÔªËØ¿ÉÉ¾! \n");
+printf("é¡ºåºè¡¨å·²ç©ºæ— æ•°æ®å…ƒç´ å¯åˆ ! \n");
 return 0;
 }
 else if(i < 0 || i > L->size-1)
 {
-printf("dier²ÎÊıi²»ºÏ·¨");
+printf("å‚æ•°iä¸åˆæ³•");
 return 0;
 }
 else
-{//´Ë¶Î³ÌĞòÓĞÒ»´¦´íÎó
-
-*x = L->list[i];/*±£´æÉ¾³ıµÄÔªËØµ½²ÎÊıxÖĞ*/
-for(j = i +1; j <= L->size-1; j++) L->list[j-1] = L->list[j];/*ÒÀ´ÎÇ°ÒÆ*/
-L->size--;/*Êı¾İÔªËØ¸öÊı¼õ1*/
+{//æ­¤æ®µç¨‹åºæœ‰ä¸€å¤„é”™è¯¯
+*x = L->list[i];/*ä¿å­˜åˆ é™¤çš„å…ƒç´ åˆ°å‚æ•°xä¸­*/
+for(j = i +1; j <= L->size-1; j++) L->list[j-1] = L->list[j];/*ä¾æ¬¡å‰ç§»*/
+L->size--;/*æ•°æ®å…ƒç´ ä¸ªæ•°å‡1*/
 return 1;
 }
 }
 
 int ListGet(SeqList L, int i, DataType *x)
-/*È¡Ë³Ğò±íLÖĞµÚi¸öÊı¾İÔªËØµÄÖµ´æÓÚxÖĞ£¬³É¹¦Ôò·µ»Ø1£¬Ê§°Ü·µ»Ø0*/
+/*å–é¡ºåºè¡¨Lä¸­ç¬¬iä¸ªæ•°æ®å…ƒç´ çš„å€¼å­˜äºxä¸­ï¼ŒæˆåŠŸåˆ™è¿”å›1ï¼Œå¤±è´¥è¿”å›0*/
 {
 if(i < 0 || i > L.size-1)
 {
-printf("disan²ÎÊıi²»ºÏ·¨! \n");
+printf("å‚æ•°iä¸åˆæ³•! \n");
 return 0;
 }
 else
@@ -79,133 +81,17 @@ return 1;
 }
 }
 
-void Henbin(SeqList *La,SeqList *Lb)
-{
-  int i = 0,j = 0,k=0,x;
-  int a=0;
-  int ai,bj;
-  int La_len = ListLength(*La);
-  int Lb_len = ListLength(*Lb);
-  SeqList Lc;
-  ListInitiate(&Lc);
-  while((i<La_len)&&(j<Lb_len))
-  {
-     ListGet(*La,i,&ai);ListGet(*Lb,j,&bj);
-     if(ai<=bj){ListInsert(&Lc,k++,ai);i++;}
-     else{ListInsert(&Lc,k++,bj);j++;}
-
-  }
-  while(i<La_len){ListGet(*La,i++,&ai);ListInsert(&Lc,k++,ai);}
-  while(j<Lb_len){ListGet(*Lb,j++,&bj);ListInsert(&Lc,k++,bj);}
-  for(a = 0; a < ListLength(Lc); a++)
-  {
-    ListGet(Lc,a,&x); //´Ë¶Î³ÌĞòÓĞÒ»´¦´íÎó
-    printf("%d", x);
-
-  }
-}
-
 
 void main(void)
-{ SeqList myList1;SeqList myList2;
-int i , j;
-ListInitiate(&myList1);
-ListInitiate(&myList2);
-for(i = 0; i < 15; i++)
-ListInsert(&myList1, i, i+1);
-for(j = 0; j < 10; j++)
-ListInsert(&myList2, j, j+1);
-Henbin(&myList1,&myList2);
-
-}
-printf("diyi²ÎÊıi²»ºÏ·¨! \n");
-return 0;
-}
-else
-{ //´Ë¶Î³ÌĞòÓĞÒ»´¦´íÎó
-for(j = L->size; j > i; j--) L->list[j] = L->list[j+1];/*Îª²åÈë×ö×¼±¸*/
-L->list[i] = x;/*²åÈë*/
-L->size ++;/*ÔªËØ¸öÊı¼Ó1*/
-return 1;
-}
-}
-
-int ListDelete(SeqList *L, int i, DataType *x)
-/*É¾³ıË³Ğò±íLÖĞÎ»ÖÃi£¨0 ¡Ü i ¡Ü size - 1£©µÄÊı¾İÔªËØÖµ²¢´æ·Åµ½²ÎÊıxÖĞ*/
-/*É¾³ı³É¹¦·µ»Ø1£¬É¾³ıÊ§°Ü·µ»Ø0*/
+{ SeqList myList;
+  int i , x;
+  ListInitiate(&myList);
+ for(i = 0; i < 10; i++)
+ListInsert(&myList, i, i+1);
+ListDelete(&myList, 4, &x);
+for(i = 0; i < ListLength(myList); i++)
 {
-int j;
-if(L->size <= 0)
-{
-printf("Ë³Ğò±íÒÑ¿ÕÎŞÊı¾İÔªËØ¿ÉÉ¾! \n");
-return 0;
+ListGet(myList,i,&x); //æ­¤æ®µç¨‹åºæœ‰ä¸€å¤„é”™è¯¯
+printf("%d", x);
 }
-else if(i < 0 || i > L->size-1)
-{
-printf("dier²ÎÊıi²»ºÏ·¨");
-return 0;
-}
-else
-{//´Ë¶Î³ÌĞòÓĞÒ»´¦´íÎó
-
-*x = L->list[i];/*±£´æÉ¾³ıµÄÔªËØµ½²ÎÊıxÖĞ*/
-for(j = i +1; j <= L->size-1; j++) L->list[j-1] = L->list[j];/*ÒÀ´ÎÇ°ÒÆ*/
-L->size--;/*Êı¾İÔªËØ¸öÊı¼õ1*/
-return 1;
-}
-}
-
-int ListGet(SeqList L, int i, DataType *x)
-/*È¡Ë³Ğò±íLÖĞµÚi¸öÊı¾İÔªËØµÄÖµ´æÓÚxÖĞ£¬³É¹¦Ôò·µ»Ø1£¬Ê§°Ü·µ»Ø0*/
-{
-if(i < 0 || i > L.size-1)
-{
-printf("disan²ÎÊıi²»ºÏ·¨! \n");
-return 0;
-}
-else
-{
-*x = L.list[i];
-return 1;
-}
-}
-
-void Henbin(SeqList *La,SeqList *Lb)
-{
-  int i = 0,j = 0,k=0,x;
-  int a=0;
-  int ai,bj;
-  int La_len = ListLength(*La);
-  int Lb_len = ListLength(*Lb);
-  SeqList Lc;
-  ListInitiate(&Lc);
-  while((i<La_len)&&(j<Lb_len))
-  {
-     ListGet(*La,i,&ai);ListGet(*Lb,j,&bj);
-     if(ai<=bj){ListInsert(&Lc,k++,ai);i++;}
-     else{ListInsert(&Lc,k++,bj);j++;}
-
-  }
-  while(i<La_len){ListGet(*La,i++,&ai);ListInsert(&Lc,k++,ai);}
-  while(j<Lb_len){ListGet(*Lb,j++,&bj);ListInsert(&Lc,k++,bj);}
-  for(a = 0; a < ListLength(Lc); a++)
-  {
-    ListGet(Lc,a,&x); //´Ë¶Î³ÌĞòÓĞÒ»´¦´íÎó
-    printf("%d", x);
-
-  }
-}
-
-
-void main(void)
-{ SeqList myList1;SeqList myList2;
-int i , j;
-ListInitiate(&myList1);
-ListInitiate(&myList2);
-for(i = 0; i < 15; i++)
-ListInsert(&myList1, i, i+1);
-for(j = 0; j < 10; j++)
-ListInsert(&myList2, j, j+1);
-Henbin(&myList1,&myList2);
-
 }
